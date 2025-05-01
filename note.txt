@@ -1,0 +1,68 @@
+for permision all generic have the attribute  permissinon_classes 
+permission_classes = [permissions.IsAuthenticated] 
+this check for authentication and all allow the user if IsAuthenticated
+there are different authentication, for more info check the documentation 
+ try .IsAuthenticatedOrReadOnly---> what this does is that we can note send a post methed 
+    only a get methode as it say ready only (can't create but can view)
+
+a quick quation what will happen if the authentication is class is no include 
+
+note ......> custom created permission is quired, because the permission set on the admine session 
+           > does not full apply to the view permission
+           >and dose not apply at all to other view that does not have the permission_classes
+         example if view1 have the permissinon_classes and view2 deos not have the permission_classes 
+         the permision set on that current user will not apply to that view, 
+
+how it meant to be is like this .......> the permission set on a current user that is in session at the 
+                                         moment is meant to apply to all view the that user is to access
+                                         but instead this is what we get, we set the permision in our class
+                                         as  permission_classes = [permissions.DjangoModelPermissions] ....>{ what this permission does is that it let the use be able to view the list only }
+                                         and in our admin session we strip the user of all permission 
+                                         including viewing the model (listing), but still the user can
+                                         stil list out the item seve on the model, so this why custom
+                                         permission come into play
+
+put in mind that the permission set on the admin session dosent fully apply to the what view the user can access for the reason given above
+
+also another reson is this when the user is strip of from it right funy enought if the user gose the crate view url on the browse that is tied 
+to no permision he can make modification to that model even as he is strip off his right
+
+not when you here admin session i mean session meaning there is a login session in this case am using the browser note the py client this time
+in other to make use of py client session then token session will be set
+                              
+
+
+
+THIS LINE
+in order to make use of the custome property model permissions we overide  DjangoModelPermisssions and set the '.peras_map' 
+property . refer to the source code foe details.
+
+
+//////////////////////////////////////////////////////////////////
+tokenauthentication 
+give that our python client was'nt able to interact to the api which is do to the 
+fact that the python client session was,nt specified on the authentication_classes 
+
+the session in which the pycliet can interact with the api server is througt token authentication
+throug this the session is kept live 
+
+in other to make use of the tokenauthentication we must first include it in our install app as in 
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework.authtoken',
+    'api',
+    'product',
+    'rest_framework'
+]
+and then run makemigration's
+then on our urls.py we include the path and view provide by default to obtain our token
+     path('auth/', obtain_auth_token)
+     
+     and the view is imported from ....> from rest_framework.authtoken.views import obtain_auth_token
+     
