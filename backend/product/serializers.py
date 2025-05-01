@@ -22,7 +22,7 @@ class ProductSerializer(serializers.ModelSerializer):
     )
     '''
     related_products = PublicInlineSerializer(source='user.product_set.all', many=True, read_only=True)
-    user = UserPublicSerializer(read_only=True) #how dose this work?
+    user = UserPublicSerializer(read_only=True) #how dose this work? need to know
     # email = serializers.EmailField(write_only=True)
     title = serializers.CharField(validators=[validate_title, unique_product_title])
     name = serializers.CharField(source= 'pk', read_only=True)
