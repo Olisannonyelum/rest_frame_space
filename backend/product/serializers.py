@@ -21,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
         lookup_field='pk'
     )
     '''
-    related_products = PublicInlineSerializer(source='user.product_set.all', many=True, read_only=True)
+    # related_products = PublicInlineSerializer(source='user.product_set.all', many=True, read_only=True)
     user = UserPublicSerializer(read_only=True) #how dose this work? need to know
     # email = serializers.EmailField(write_only=True)
     title = serializers.CharField(validators=[validate_title, unique_product_title])
@@ -30,14 +30,14 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
-            'related_products',
+            # 'related_products',
             # 'username',
             # 'edit_url', 
             # 'url',
             'name',
             'user',
             'pk',
-            'id',
+            # 'id',
             'title',
             'content',
             'price',
