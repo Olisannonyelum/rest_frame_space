@@ -20,6 +20,9 @@ class ProductDetailAPIView(
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+"""
+    i updated the vscode
+"""
 '''
     there is something i notice from the arrangement of this inherited class
     when i inherite userQuerysetmixin last the get_queryset did not applie 
